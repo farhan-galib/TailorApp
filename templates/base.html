@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailor Order Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .flash-message {
+            padding: 15px 25px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            color: white;
+            animation: slideIn 0.5s ease-out;
+        }
+        .flash-message.success {
+            background-color: #4CAF50;
+        }
+        .flash-message.error {
+            background-color: #f44336;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="pollux-dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="pollux-sidebar">
+            <div class="sidebar-brand">
+                <span class="sidebar-logo">
+                  <!-- Measurement tape SVG icon -->
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="10" width="28" height="12" rx="6" fill="#5ecbfa"/>
+                    <rect x="4" y="12" width="24" height="8" rx="4" fill="#fff"/>
+                    <rect x="6" y="14" width="2" height="4" rx="1" fill="#5ecbfa"/>
+                    <rect x="10" y="14" width="2" height="4" rx="1" fill="#5ecbfa"/>
+                    <rect x="14" y="14" width="2" height="4" rx="1" fill="#5ecbfa"/>
+                    <rect x="18" y="14" width="2" height="4" rx="1" fill="#5ecbfa"/>
+                    <rect x="22" y="14" width="2" height="4" rx="1" fill="#5ecbfa"/>
+                  </svg>
+                </span>
+                TailorUI
+            </div>
+            <ul class="sidebar-menu">
+                <li class="{% if request.endpoint == 'dashboard' %}active{% endif %}"><i class="fas fa-tachometer-alt"></i> <a href="{{ url_for('dashboard') }}">Dashboard</a> <span class="sidebar-badge new">new</span></li>
+                <li class="{% if request.endpoint == 'create_order' %}active{% endif %}"><i class="fas fa-edit"></i> <a href="{{ url_for('create_order') }}">Orders</a></li>
+                <li class="{% if request.endpoint == 'order_details' %}active{% endif %}"><i class="fas fa-user"></i> <a href="{{ url_for('order_details') }}">Order Details</a></li>
+                <li><i class="fas fa-cog"></i> <a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </aside>
+        <!-- Main Content -->
+        <div class="pollux-main">
+            <div class="pollux-dashboard-content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Auto-hide flash messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    message.style.transition = 'opacity 0.5s ease-out';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html> 

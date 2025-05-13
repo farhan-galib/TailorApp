@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-row">
+    <div class="dashboard-card stat-card">
+        <h2 class="stat-title">Order Details</h2>
+    </div>
+</div>
+<div class="dashboard-row">
+    {% if orders %}
+    <div class="orders-list">
+        {% for order in orders %}
+        <div class="dashboard-card order-card">
+            <div class="order-header">
+                <h3>Order #{{ order.id }}</h3>
+                <span class="status {{ order.status.lower() }}">{{ order.status }}</span>
+            </div>
+            <div class="order-details">
+                <p><strong>Customer:</strong> {{ order.customer_name }}</p>
+                <p><strong>Phone:</strong> {{ order.phone_number }}</p>
+                <p><strong>Order Date:</strong> {{ order.order_date.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Delivery Date:</strong> {{ order.delivery_date.strftime('%Y-%m-%d') }}</p>
+                <div class="measurements">
+                    <strong>Measurements:</strong>
+                    <pre>{{ order.measurements }}</pre>
+                </div>
+                <a href="{{ url_for('edit_order', order_id=order.id) }}" class="btn-primary" style="margin-top:10px;">Edit</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="dashboard-card stat-card">
+        <p class="no-orders">No orders found.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

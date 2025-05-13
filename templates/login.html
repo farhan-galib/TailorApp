@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="login-hero-wrapper">
+    <div class="login-hero-bg">
+        <div class="login-hero-overlay"></div>
+    </div>
+    <div class="login-hero-content">
+        <div class="login-hero-left">
+            <h1>Welcome</h1>
+            <p>Sign in to manage your tailoring orders and measurements with ease.</p>
+        </div>
+        <div class="login-hero-right">
+            <form method="POST" action="{{ url_for('login') }}" class="login-form">
+                <div class="login-form-logo">
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Person Logo" />
+                </div>
+                <h2>Sign in</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your username" autocomplete="on">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password" autocomplete="on">
+                </div>
+                <div class="form-group form-remember">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me</label>
+                </div>
+                <button type="submit" class="btn-primary">Sign in</button>
+                <div class="login-divider"><span>or</span></div>
+                <p class="login-terms">By clicking on "Sign in now" you agree to our <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a></p>
+            </form>
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

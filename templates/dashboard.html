@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-row" style="gap: 32px; flex-wrap: wrap;">
+    <div class="dashboard-card-gradient gradient-pink dashboard-card-bg-circles">
+        <span class="stat-title">Total Orders</span>
+        <a href="{{ url_for('order_details') }}" class="stat-value" style="text-decoration:none; color:inherit; cursor:pointer;">{{ total_orders or 0 }}</a>
+        <span class="stat-change">Increased by 3%</span>
+        <span class="stat-icon"><i class="fas fa-chart-line"></i></span>
+    </div>
+    <div class="dashboard-card-gradient gradient-blue dashboard-card-bg-circles">
+        <span class="stat-title">Deliveries This Week</span>
+        <a href="{{ url_for('order_details', filter='delivered_this_week') }}" class="stat-value" style="text-decoration:none; color:inherit; cursor:pointer;">{{ deliveries_this_week or 0 }}</a>
+        <span class="stat-change">Increased by 8%</span>
+        <span class="stat-icon"><i class="fas fa-bookmark"></i></span>
+    </div>
+    <div class="dashboard-card-gradient gradient-green dashboard-card-bg-circles">
+        <span class="stat-title">Pending Orders</span>
+        <a href="{{ url_for('order_details', filter='pending') }}" class="stat-value" style="text-decoration:none; color:inherit; cursor:pointer;">{{ pending_orders or 0 }}</a>
+        <span class="stat-change">Decreased by 2%</span>
+        <span class="stat-icon"><i class="fas fa-gem"></i></span>
+    </div>
+    <div class="dashboard-card-gradient gradient-blue dashboard-card-bg-circles">
+        <span class="stat-title">Completed Orders</span>
+        <a href="{{ url_for('order_details', filter='completed') }}" class="stat-value" style="text-decoration:none; color:inherit; cursor:pointer;">{{ completed_orders or 0 }}</a>
+        <span class="stat-change">Increased by 12%</span>
+        <span class="stat-icon"><i class="fas fa-check-circle"></i></span>
+    </div>
+</div>
+<div class="dashboard-row">
+    <div class="dashboard-card stat-card">
+        <div class="stat-title">Welcome to Tailor Shop Dashboard</div>
+        <div class="stat-value">Manage your orders and customers efficiently.</div>
+    </div>
+</div>
+<div class="dashboard-row">
+    <div class="dashboard-card action-card">
+        <a href="{{ url_for('create_order') }}" class="btn-primary">Create New Order</a>
+    </div>
+    <div class="dashboard-card action-card">
+        <a href="{{ url_for('order_details') }}" class="btn-secondary">View Orders</a>
+    </div>
+</div>
+{% endblock %} 

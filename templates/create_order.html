@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-row">
+    <div class="dashboard-card form-card">
+        <h2 class="stat-title">Create New Order</h2>
+        <form method="POST" action="{{ url_for('create_order') }}" class="order-form">
+            <div class="form-group">
+                <label for="customer_name">Customer Name:</label>
+                <input type="text" id="customer_name" name="customer_name" required>
+            </div>
+            <div class="form-group">
+                <label for="customer_email">Customer Email:</label>
+                <input type="email" id="customer_email" name="customer_email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Order For:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="measurements">Measurements:</label>
+                <textarea id="measurements" name="measurements" rows="6" required placeholder="Enter detailed measurements here..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="delivery_date">Delivery Date:</label>
+                <input type="date" id="delivery_date" name="delivery_date" required>
+            </div>
+            <button type="submit" class="btn-primary">Create Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %} 
